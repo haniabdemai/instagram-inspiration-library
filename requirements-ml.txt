@@ -1,0 +1,5 @@
+# Transcription environment (.venv-ml): kept separate so the download env
+# stays torch-free.
+torch>=2.1
+torchaudio>=2.1
+assemblyai>=0.30

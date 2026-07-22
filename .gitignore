@@ -1,0 +1,24 @@
+# Real data: never committed
+*.db
+*.db.*
+Instagram data/
+videos/
+results/
+*.log
+*_log.txt
+
+# Browser session (contains live login cookies)
+.browser-session/
+
+# Environments
+.venv/
+.venv-ml/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local config / secrets
+.env
+
+# OS
+.DS_Store

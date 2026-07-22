@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template for a scheduled download session (macOS launchd).
+
+  Naming convention: com.inspo-library.dl-<MMDD><letter>.plist, e.g.
+  com.inspo-library.dl-0723a.plist for the first session on 23rd of month 07.
+  Date-sorted names mean alphabetical order = chronological order, which is
+  how scheduled_download.sh finds the "next" session.
+
+  To install one session:
+    1. Copy this file to ~/Library/LaunchAgents/com.inspo-library.dl-0723a.plist
+    2. Replace __PROJECT_DIR__ with the absolute path to your clone
+    3. Replace the label string below to match the filename (without .plist)
+    4. Set Month/Day/Hour/Minute for when the session should run
+    5. launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.inspo-library.dl-0723a.plist
+
+  Each agent removes its own plist after it fires (self-cleaning), so
+  schedule a handful of sessions ahead whenever you want more downloads.
+  The first argument (60) is the requested batch size; the script lowers it
+  automatically to respect the daily and weekly caps.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.inspo-library.dl-0723a</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>__PROJECT_DIR__/scheduled_download.sh</string>
+        <string>60</string>
+        <string>com.inspo-library.dl-0723a</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Month</key>
+        <integer>7</integer>
+        <key>Day</key>
+        <integer>23</integer>
+        <key>Hour</key>
+        <integer>14</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>__PROJECT_DIR__/scheduled_download_stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>__PROJECT_DIR__/scheduled_download_stderr.log</string>
+</dict>
+</plist>
